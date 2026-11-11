@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanh Van Nguyen — Quantitative Researcher</title>
+<meta name="description" content="Thanh Van Nguyen — quant researcher and founder of Talyxion. I measure how much of a public track record a follower can actually earn. PhD student at Tsinghua University.">
+<meta property="og:title" content="Thanh Van Nguyen — Quantitative Researcher">
+<meta property="og:description" content="Leaderboards show who won; I measure what a follower can earn. Founder of Talyxion. 1st in Vietnam, WorldQuant IQC 2023. PhD student, Tsinghua.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: { extend: {
+    fontFamily: { sans:['Inter','ui-sans-serif','system-ui'], display:['Space Grotesk','Inter','sans-serif'] },
+    colors: {
+      ink:'#0A0E1A', panel:'#0F1424', line:'#1E2740',
+      accent:{ 400:'#38BDF8', 500:'#22D3EE', 600:'#0EA5E9' },
+      iris:'#818CF8',
+    },
+    boxShadow:{ glow:'0 0 0 1px rgba(56,189,248,.15), 0 18px 50px -20px rgba(34,211,238,.35)' },
+  }}
+}
+</script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  html{ background:#0A0E1A; }
+  body{ -webkit-font-smoothing:antialiased; }
+  [x-cloak]{ display:none!important; }
+  .mesh{
+    background:
+      radial-gradient(60rem 30rem at 80% -10%, rgba(34,211,238,.16), transparent 60%),
+      radial-gradient(50rem 30rem at 0% 10%, rgba(129,140,248,.14), transparent 55%);
+  }
+  .grid-lines{
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(closest-side at 50% 20%,#000 60%,transparent 100%);
+            mask-image:radial-gradient(closest-side at 50% 20%,#000 60%,transparent 100%);
+  }
+  .gtext{ background:linear-gradient(100deg,#7DD3FC,#22D3EE 45%,#818CF8); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .card{ background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015)); border:1px solid #1E2740; }
+  .card:hover{ border-color:rgba(34,211,238,.4); }
+  .chip{ border:1px solid #233; background:rgba(255,255,255,.03); }
+  .tl::before{ content:''; position:absolute; left:7px; top:6px; bottom:-6px; width:2px; background:linear-gradient(#22D3EE,transparent); }
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+  a{ text-decoration:none; }
+  ::selection{ background:rgba(34,211,238,.3); }
+  .navlink.active{ color:#fff; } .navlink.active::after{ width:100%; }
+  .navlink{ position:relative; } .navlink::after{ content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:#22D3EE; transition:width .25s; }
+</style>
+</head>
+<body class="font-sans text-slate-300 bg-ink antialiased">
+
+<!-- NAV -->
+<header x-data="{open:false}" class="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-ink/70 border-b border-line/70">
+  <nav class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <span class="w-8 h-8 rounded-lg grid place-items-center font-display font-bold text-ink text-sm" style="background:linear-gradient(135deg,#22D3EE,#818CF8)">TN</span>
+      <span class="font-display font-bold text-white tracking-tight">Thanh Van Nguyen</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-400">
+      <a href="#about" class="navlink hover:text-white transition">About</a>
+      <a href="#experience" class="navlink hover:text-white transition">Experience</a>
+      <a href="#publications" class="navlink hover:text-white transition">Research</a>
+      <a href="#skills" class="navlink hover:text-white transition">Skills</a>
+      <a href="#awards" class="navlink hover:text-white transition">Awards</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="mailto:felicenguyen2001@gmail.com" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg text-ink" style="background:linear-gradient(135deg,#22D3EE,#38BDF8)">
+        <i data-lucide="mail" class="w-4 h-4"></i> Contact</a>
+      <button @click="open=!open" class="md:hidden p-2 text-slate-300"><i data-lucide="menu" class="w-5 h-5"></i></button>
+    </div>
+  </nav>
+  <div x-show="open" x-cloak class="md:hidden border-t border-line bg-ink px-5 py-3 flex flex-col gap-1 text-sm">
+    <a @click="open=false" href="#about" class="py-2">About</a>
+    <a @click="open=false" href="#experience" class="py-2">Experience</a>
+    <a @click="open=false" href="#publications" class="py-2">Research</a>
+    <a @click="open=false" href="#skills" class="py-2">Skills</a>
+    <a @click="open=false" href="#awards" class="py-2">Awards</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="relative mesh overflow-hidden pt-32 pb-20">
+  <div class="absolute inset-0 grid-lines opacity-80"></div>
+  <div class="relative max-w-6xl mx-auto px-5">
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-8">
+        <span class="inline-flex items-center gap-2 text-xs font-semibold chip rounded-full px-3 py-1.5 text-accent-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span> Founder &amp; CEO, Talyxion · PhD student, Tsinghua University
+        </span>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mt-5 text-white tracking-tight">
+          Leaderboards show who won.<br>I measure what <span class="gtext">followers</span><br><span class="gtext">actually earn</span>.
+        </h1>
+        <p class="text-lg text-slate-400 mt-6 max-w-2xl leading-relaxed">
+          I audited all <span class="text-slate-200">47,220 wallets</span> on Hyperliquid's leaderboard. Picked with hindsight,
+          the best records show a backtest Sharpe of <span class="text-slate-200">3.4</span>; picked the way a follower must, on past data only,
+          <span class="text-slate-200">1.3</span>. At <span class="text-slate-200">Talyxion</span>, 130+ paying users copy only what passes those screens,
+          in their own exchange accounts. 1st in Vietnam at WorldQuant's IQC 2023; PhD student at Tsinghua.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 mt-8">
+          <a href="#experience" class="inline-flex items-center gap-2 font-semibold px-5 py-3 rounded-xl text-ink" style="background:linear-gradient(135deg,#22D3EE,#38BDF8)">
+            View experience <i data-lucide="arrow-down" class="w-4 h-4"></i></a>
+          <a href="https://linkedin.com/in/akuma9999/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-semibold px-5 py-3 rounded-xl text-slate-200 chip hover:border-accent-500/50 transition">
+            <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn</a>
+          <a href="#publications" class="inline-flex items-center gap-2 font-semibold px-5 py-3 rounded-xl text-slate-200 chip hover:border-accent-500/50 transition">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Publications</a>
+        </div>
+      </div>
+      <div class="lg:col-span-4">
+        <div class="card rounded-2xl p-5 shadow-glow">
+          <div class="relative rounded-xl overflow-hidden ring-1 ring-line mb-4" style="aspect-ratio:4/5;background:linear-gradient(135deg,#0F1424,#141a2e)">
+            <img src="assets/photo.jpg" alt="Thanh Van Nguyen" class="w-full h-full object-cover object-top"
+                 onerror="this.remove();var m=document.getElementById('mono'); if(m) m.style.display='grid';">
+            <div id="mono" style="display:none;background:linear-gradient(135deg,#22D3EE,#818CF8)" class="absolute inset-0 place-items-center font-display font-bold text-ink text-6xl">TN</div>
+            <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/50 to-transparent"></div>
+          </div>
+          <div class="text-white font-display font-semibold text-lg">Thanh Van Nguyen</div>
+          <div class="text-sm text-slate-400 mt-0.5">Founder &amp; CEO, Talyxion · Quant Researcher</div>
+          <div class="mt-4 space-y-2 text-sm">
+            <a href="mailto:felicenguyen2001@gmail.com" class="flex items-center gap-2 text-slate-300 hover:text-accent-400"><i data-lucide="mail" class="w-4 h-4 text-slate-500"></i> felicenguyen2001@gmail.com</a>
+            <div class="flex items-center gap-2 text-slate-300"><i data-lucide="phone" class="w-4 h-4 text-slate-500"></i> +84 962 173 195</div>
+            <div class="flex items-center gap-2 text-slate-300"><i data-lucide="map-pin" class="w-4 h-4 text-slate-500"></i> Shenzhen, CN · from Hanoi, VN</div>
+            <a href="https://linkedin.com/in/akuma9999/" target="_blank" rel="noopener" class="flex items-center gap-2 text-slate-300 hover:text-accent-400"><i data-lucide="linkedin" class="w-4 h-4 text-slate-500"></i> /in/akuma9999</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- stat band -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-px mt-14 rounded-2xl overflow-hidden border border-line bg-line/70">
+      <div class="bg-panel px-6 py-6"><div class="font-display font-bold text-3xl gtext">130+</div><div class="text-xs text-slate-400 mt-1">Paying users at Talyxion, $0 on ads</div></div>
+<div class="bg-panel px-6 py-6"><div class="font-display font-bold text-3xl gtext">47,220</div><div class="text-xs text-slate-400 mt-1">Leaderboard wallets audited</div></div>
+<div class="bg-panel px-6 py-6"><div class="font-display font-bold text-3xl gtext">1st</div><div class="text-xs text-slate-400 mt-1">Vietnam, WorldQuant IQC 2023 (30,000+ entrants)</div></div>
+<div class="bg-panel px-6 py-6"><div class="font-display font-bold text-3xl gtext">6</div><div class="text-xs text-slate-400 mt-1">Peer-reviewed papers, incl. GECCO &amp; IJCNN 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="max-w-6xl mx-auto px-5 py-20">
+  <div class="reveal">
+    <div class="text-xs font-semibold uppercase tracking-widest text-accent-400">About</div>
+    <h2 class="font-display font-bold text-3xl text-white mt-2 max-w-3xl leading-snug">
+      How much of a track record can a follower actually earn? That question runs through everything I build.
+    </h2>
+    <p class="text-slate-400 mt-5 max-w-3xl leading-relaxed">
+      I learned the problem with my own money: I copied leaders from the top of a leaderboard and lost. The records were real;
+      the inference was false. Since then I have priced the gap (hindsight, attrition and copy costs) and built
+      <span class="text-slate-200">Talyxion</span> to act on it. Finding an edge is easy; proving it is not an artifact is the work,
+      so the most valuable code I write is the gate that says no. I am a PhD student in
+      <span class="text-slate-200">Data Science &amp; Information Technology</span> at Tsinghua University (Shenzhen), where the same
+      question carries into disaster response: how much of what a model shows holds up in the real world.
+    </p>
+  </div>
+  <div class="grid sm:grid-cols-3 gap-5 mt-10">
+    <div class="card rounded-2xl p-6 reveal"><div class="w-11 h-11 rounded-xl grid place-items-center text-accent-400" style="background:rgba(34,211,238,.1)"><i data-lucide="trending-up" class="w-5 h-5"></i></div><h3 class="font-display font-semibold text-white mt-4">Track-record audits</h3><p class="text-sm text-slate-400 mt-2 leading-relaxed">47,220 leaderboard wallets: Sharpe 3.4 with hindsight vs 1.3 point-in-time. 1 in 3 accounts stop within a year. Copying at the leader's hour costs ~9.5 bp a trade vs ~3.5 bp four hours later.</p></div>
+<div class="card rounded-2xl p-6 reveal"><div class="w-11 h-11 rounded-xl grid place-items-center text-accent-400" style="background:rgba(34,211,238,.1)"><i data-lucide="brain-circuit" class="w-5 h-5"></i></div><h3 class="font-display font-semibold text-white mt-4">ML &amp; optimization</h3><p class="text-sm text-slate-400 mt-2 leading-relaxed">Multi-modal &amp; multi-agent ML, regime detection, evolutionary alpha discovery, hierarchical RL market making.</p></div>
+<div class="card rounded-2xl p-6 reveal"><div class="w-11 h-11 rounded-xl grid place-items-center text-accent-400" style="background:rgba(34,211,238,.1)"><i data-lucide="siren" class="w-5 h-5"></i></div><h3 class="font-display font-semibold text-white mt-4">OR for impact</h3><p class="text-sm text-slate-400 mt-2 leading-relaxed">Stochastic optimization for post-disaster response — earthquake EMS resource allocation and tropical-cyclone forecasting.</p></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="relative">
+  <div class="max-w-6xl mx-auto px-5 py-16">
+    <div class="text-xs font-semibold uppercase tracking-widest text-accent-400 reveal">Experience</div>
+    <h2 class="font-display font-bold text-3xl text-white mt-2 reveal">Where I've built &amp; shipped</h2>
+    <div class="mt-10 space-y-5">
+      <div class="card rounded-2xl p-6 reveal">
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div><div class="flex items-center gap-2"><h3 class="font-display font-semibold text-white text-lg">Talyxion</h3><span class="chip text-[10px] font-bold uppercase tracking-wide text-accent-400 rounded-full px-2 py-0.5">Founder</span></div>
+      <div class="text-accent-400 text-sm font-medium mt-0.5">Founder &amp; CEO</div></div>
+    <div class="text-right text-xs text-slate-500"><div>Jul 2024 — Now</div><div>Vietnam · Shenzhen</div></div>
+  </div>
+  <ul class="mt-4 space-y-2 text-sm text-slate-400 leading-relaxed"><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span><b>130+ paying users</b> since April 2026, all from our own channels with $0 on ads; about <b>$500k</b> copied in their own exchange accounts. We never hold funds.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Lead trader on the copy-trading platforms of Binance, OKX, KuCoin, Gate and BitMart.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Wrote the research agent (built on my GECCO 2026 search method), the backtester and the robustness gate that kills strategies which only work in backtests.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Built <b>PROPHET</b>, a Polymarket forecasting model: top <b>1.24%</b> of Polymarket traders on-chain.</span></li></ul>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div><div class="flex items-center gap-2"><h3 class="font-display font-semibold text-white text-lg">CoinLion</h3></div>
+      <div class="text-accent-400 text-sm font-medium mt-0.5">Head of Trading</div></div>
+    <div class="text-right text-xs text-slate-500"><div>Jun 2025 — Mar 2026</div><div>Remote · US</div></div>
+  </div>
+  <ul class="mt-4 space-y-2 text-sm text-slate-400 leading-relaxed"><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Designed and developed systematic crypto strategies using technical indicators, statistical models and machine learning.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Built end-to-end model pipelines: data processing → backtesting → optimization → live deployment.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Managed portfolio risk and exposures; monitored live performance against backtest benchmarks and adjusted accordingly.</span></li></ul>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div><div class="flex items-center gap-2"><h3 class="font-display font-semibold text-white text-lg">BeeTrade</h3></div>
+      <div class="text-accent-400 text-sm font-medium mt-0.5">AI Researcher · Data Scientist</div></div>
+    <div class="text-right text-xs text-slate-500"><div>Jun 2019 — May 2023</div><div>Remote · US</div></div>
+  </div>
+  <ul class="mt-4 space-y-2 text-sm text-slate-400 leading-relaxed"><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Medium-frequency strategy development across multiple crypto assets and market regimes.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Agent-based trading research for execution, market making and dynamic risk control.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Extensive quant-finance literature study: alpha research, market microstructure, execution optimization, statistical arbitrage.</span></li></ul>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div><div class="flex items-center gap-2"><h3 class="font-display font-semibold text-white text-lg">Clean Assets Management LLC</h3></div>
+      <div class="text-accent-400 text-sm font-medium mt-0.5">AI Solutions Architect</div></div>
+    <div class="text-right text-xs text-slate-500"><div>Jun 2025 — Now</div><div>Remote · US</div></div>
+  </div>
+  <ul class="mt-4 space-y-2 text-sm text-slate-400 leading-relaxed"><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Built secure data pipelines ingesting and enriching <b>9M+ patents</b> across top U.S. universities and 100+ academic sources.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Applied deep learning to rank intangible assets by commercial potential, informing investment decisions.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Conducted AI-assisted valuations aligned with market comparables for intangible-asset commercialization.</span></li></ul>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div><div class="flex items-center gap-2"><h3 class="font-display font-semibold text-white text-lg">WorldQuant</h3></div>
+      <div class="text-accent-400 text-sm font-medium mt-0.5">Research Consultant</div></div>
+    <div class="text-right text-xs text-slate-500"><div>Mar 2023 — Mar 2025</div><div>Hanoi · VN</div></div>
+  </div>
+  <ul class="mt-4 space-y-2 text-sm text-slate-400 leading-relaxed"><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Created novel quantitative strategies aimed at optimizing investment performance.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Established a mechanized framework for creating, analyzing and backtesting models — <b>80% reduction</b> in alpha-validation time.</span></li></ul>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div><div class="flex items-center gap-2"><h3 class="font-display font-semibold text-white text-lg">Quantiacs</h3></div>
+      <div class="text-accent-400 text-sm font-medium mt-0.5">Quant Researcher</div></div>
+    <div class="text-right text-xs text-slate-500"><div>Aug 2019 — Sep 2022</div><div>Remote · US</div></div>
+  </div>
+  <ul class="mt-4 space-y-2 text-sm text-slate-400 leading-relaxed"><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Conducted quantitative research and developed algorithmic trading strategies on the Quantiacs platform.</span></li><li class="flex gap-2"><span class="text-accent-500 mt-1.5">▸</span><span>Designed, backtested and optimized alpha signals using fundamental data and machine-learning techniques.</span></li></ul>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="max-w-6xl mx-auto px-5 py-10">
+  <div class="text-xs font-semibold uppercase tracking-widest text-accent-400 reveal">Education</div>
+  <h2 class="font-display font-bold text-3xl text-white mt-2 reveal">Academic background</h2>
+  <div class="grid md:grid-cols-2 gap-5 mt-8">
+    <div class="card rounded-2xl p-6 reveal">
+  <div class="flex items-start justify-between gap-2">
+    <h3 class="font-display font-semibold text-white">Tsinghua University</h3>
+    <span class="text-xs text-slate-500 whitespace-nowrap">Sep 2026 — Now</span></div>
+  <div class="text-sm text-accent-400 mt-1">PhD · Data Science &amp; Information Technology</div>
+  <div class="text-xs text-slate-500 mt-1">Shenzhen, China</div><div class="text-xs text-slate-500 mt-2">Discrete-Event Simulation · Operations Research Methods · Agent-based Simulation</div>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex items-start justify-between gap-2">
+    <h3 class="font-display font-semibold text-white">Vietnam National University</h3>
+    <span class="text-xs text-slate-500 whitespace-nowrap">Nov 2023 — Dec 2025</span></div>
+  <div class="text-sm text-accent-400 mt-1">M.Sc. · Computer Science — GPA 3.53/4 (8.4/10)</div>
+  <div class="text-xs text-slate-500 mt-1">Hanoi, VN</div><div class="text-xs text-slate-500 mt-2">Artificial Intelligence · Statistical ML · NLP · Optimization · Blockchain</div>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex items-start justify-between gap-2">
+    <h3 class="font-display font-semibold text-white">Vietnam National University</h3>
+    <span class="text-xs text-slate-500 whitespace-nowrap">Aug 2019 — Jun 2023</span></div>
+  <div class="text-sm text-accent-400 mt-1">Engineer's Degree · Computer Engineering</div>
+  <div class="text-xs text-slate-500 mt-1">Hanoi, VN</div><div class="text-xs text-slate-500 mt-2">Data Structures · Linear Algebra · Calculus · Operating Systems</div>
+</div>
+<div class="card rounded-2xl p-6 reveal">
+  <div class="flex items-start justify-between gap-2">
+    <h3 class="font-display font-semibold text-white">ACM ASEAN School</h3>
+    <span class="text-xs text-slate-500 whitespace-nowrap">Mar 2025</span></div>
+  <div class="text-sm text-accent-400 mt-1">Visiting Student</div>
+  <div class="text-xs text-slate-500 mt-1">Singapore</div>
+</div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications" class="max-w-6xl mx-auto px-5 py-16">
+  <div class="flex items-end justify-between gap-4 reveal">
+    <div>
+      <div class="text-xs font-semibold uppercase tracking-widest text-accent-400">Research</div>
+      <h2 class="font-display font-bold text-3xl text-white mt-2">Selected publications</h2>
+      <p class="text-slate-400 mt-2 text-sm">Peer-reviewed papers at GECCO, IJCNN (WCCI), ISCRAM, KSE, VNICT and an ICAIF 2026 workshop, plus papers under review and working papers (2023–2026).</p>
+    </div>
+  </div>
+  <div class="mt-8 grid md:grid-cols-2 gap-4">
+    <a href="https://doi.org/10.5281/zenodo.23640388" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Financial Innovation (under review)</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">Screening beats ranking: the value of five copy-trading decisions on a perpetual futures exchange (with Wai Kin Victor Chan)</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://arxiv.org/abs/2505.00495" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">VNICT</span>
+    <span class="text-xs text-slate-500">2023</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">Enhancing tropical cyclone path forecasting with an improved transformer network</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="#publications" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">KSE</span>
+    <span class="text-xs text-slate-500">2025</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">EvoPort: evolutionary framework for portfolio optimization via randomized alpha discovery</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/20454606" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">ISCRAM</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">Beyond Three Tiers: subtype-aware stochastic optimization for earthquake EMS response</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/20454740" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">WCCI / IJCNN</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">Grid-discretized multi-task transformer for joint cyclone path &amp; intensity forecasting</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/18899955" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">GECCO</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">Randomized uphill climbing for automated feature program synthesis</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/18863496" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Working paper</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">PROPHET: multi-modal ensemble for calibrated probability forecasting in prediction markets</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://arxiv.org/abs/2602.11708" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Working paper</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">Systematic trend-following with ML-guided regime detection — live crypto evidence</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/18864062" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Working paper</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">HRL-GridMM: hierarchical RL for adaptive delta-neutral grid market making</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/19425710" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">ICAIF 2026 Workshop (MFMB)</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">CrashMargin: multimodal stock-level crash forecasting with dynamic margin risk</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/19425689" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Preprint</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">From simulated crowds to market moves: multi-agent LLM prediction of news-driven reactions</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/19425661" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Preprint</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">AQAA: an always-on autonomous quant AI agent for continuous alpha discovery</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/19425642" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Preprint</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">NAPS: neural adaptive position sizing for risk-aware algorithmic trading</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+<a href="https://zenodo.org/records/18901946" target="_blank" rel="noopener" class="card rounded-xl p-5 reveal group block">
+  <div class="flex items-center justify-between gap-3 mb-2">
+    <span class="chip text-[11px] font-semibold text-accent-400 rounded-full px-2.5 py-0.5">Preprint</span>
+    <span class="text-xs text-slate-500">2026</span></div>
+  <div class="text-sm text-slate-200 leading-snug group-hover:text-white transition">CRAT-Net: contrastive regime-aware temporal network for market-regime detection</div>
+  <div class="text-xs text-accent-500/80 mt-2 inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Read <i data-lucide="external-link" class="w-3 h-3"></i></div>
+</a>
+  </div>
+</section>
+
+<!-- SKILLS + CERTS -->
+<section id="skills" class="max-w-6xl mx-auto px-5 py-16">
+  <div class="grid lg:grid-cols-2 gap-10">
+    <div class="reveal">
+      <div class="text-xs font-semibold uppercase tracking-widest text-accent-400">Skills</div>
+      <h2 class="font-display font-bold text-3xl text-white mt-2">Toolbox</h2>
+      <div class="mt-6 space-y-5">
+        <div><div class="text-sm font-semibold text-white mb-2">Programming</div><div class="flex flex-wrap gap-2"><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">C++</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Python</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Java</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Rust</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Lean</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">JavaScript</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">React</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">HTML/CSS</span></div></div>
+<div><div class="text-sm font-semibold text-white mb-2">Quant &amp; ML</div><div class="flex flex-wrap gap-2"><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Market microstructure</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Optimization</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Statistical ML</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Deep learning</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Reinforcement learning</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Backtesting</span></div></div>
+<div><div class="text-sm font-semibold text-white mb-2">Tools</div><div class="flex flex-wrap gap-2"><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Git</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">VSCode</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Jupyter</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">conda</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">pip</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">npm</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Postman</span></div></div>
+<div><div class="text-sm font-semibold text-white mb-2">Languages</div><div class="flex flex-wrap gap-2"><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">English (IELTS 7.0)</span><span class="chip rounded-lg px-3 py-1.5 text-sm text-slate-300">Vietnamese (native)</span></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="text-xs font-semibold uppercase tracking-widest text-accent-400">Certificates</div>
+      <h2 class="font-display font-bold text-3xl text-white mt-2">Credentials</h2>
+      <div class="mt-6 space-y-3">
+        <div class="card rounded-xl px-4 py-3 flex items-center gap-3"><i data-lucide="award" class="w-4 h-4 text-accent-400 shrink-0"></i><span class="text-sm text-slate-300 flex-1">WorldQuant BRAIN — Genius / Grand Master</span><span class="text-xs text-slate-500">2025</span></div>
+<div class="card rounded-xl px-4 py-3 flex items-center gap-3"><i data-lucide="award" class="w-4 h-4 text-accent-400 shrink-0"></i><span class="text-sm text-slate-300 flex-1">IBM Full Stack Software Developer Professional</span><span class="text-xs text-slate-500">2023</span></div>
+<div class="card rounded-xl px-4 py-3 flex items-center gap-3"><i data-lucide="award" class="w-4 h-4 text-accent-400 shrink-0"></i><span class="text-sm text-slate-300 flex-1">IBM Data Engineering Professional</span><span class="text-xs text-slate-500">2023</span></div>
+<div class="card rounded-xl px-4 py-3 flex items-center gap-3"><i data-lucide="award" class="w-4 h-4 text-accent-400 shrink-0"></i><span class="text-sm text-slate-300 flex-1">IBM Data Science Professional</span><span class="text-xs text-slate-500">2022</span></div>
+<div class="card rounded-xl px-4 py-3 flex items-center gap-3"><i data-lucide="award" class="w-4 h-4 text-accent-400 shrink-0"></i><span class="text-sm text-slate-300 flex-1">IBM Data Analyst Professional</span><span class="text-xs text-slate-500">2022</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards" class="max-w-6xl mx-auto px-5 py-16">
+  <div class="text-xs font-semibold uppercase tracking-widest text-accent-400 reveal">Achievements</div>
+  <h2 class="font-display font-bold text-3xl text-white mt-2 reveal">Competitions &amp; honors</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+    <div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">Top 7 · Global</div><div class="text-sm text-slate-200 mt-1">IMC Prosperity 4</div><div class="text-xs text-slate-500 mt-0.5">2026</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">Top 7</div><div class="text-sm text-slate-200 mt-1">HRT Macro Place Challenge</div><div class="text-xs text-slate-500 mt-0.5">2026</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">1st Place</div><div class="text-sm text-slate-200 mt-1">WorldQuant BRAIN IQC Vietnam</div><div class="text-xs text-slate-500 mt-0.5">2023</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">3rd Place</div><div class="text-sm text-slate-200 mt-1">Alphaverse Premier League</div><div class="text-xs text-slate-500 mt-0.5">2024</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">2nd Place</div><div class="text-sm text-slate-200 mt-1">Atom Single Dataset Contest</div><div class="text-xs text-slate-500 mt-0.5">2024</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">Top 4.4%</div><div class="text-sm text-slate-200 mt-1">LeetCode Contest</div><div class="text-xs text-slate-500 mt-0.5">2024</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">Best Technicality</div><div class="text-sm text-slate-200 mt-1">AWS Build on Vietnam</div><div class="text-xs text-slate-500 mt-0.5">2023</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">1st Place</div><div class="text-sm text-slate-200 mt-1">UET Hackathon</div><div class="text-xs text-slate-500 mt-0.5">2022</div></div>
+<div class="card rounded-xl p-5 reveal"><div class="font-display font-bold gtext text-lg">Runner-up</div><div class="text-sm text-slate-200 mt-1">EVMxIdeathon · 2nd SVMC</div><div class="text-xs text-slate-500 mt-0.5">2022</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="max-w-6xl mx-auto px-5 py-20">
+  <div class="card rounded-3xl p-10 md:p-14 text-center relative overflow-hidden shadow-glow">
+    <div class="absolute inset-0 mesh opacity-60"></div>
+    <div class="relative">
+      <h2 class="font-display font-bold text-3xl md:text-4xl text-white">Let's build something rigorous.</h2>
+      <p class="text-slate-400 mt-3 max-w-xl mx-auto">Open to research collaboration, quant roles, and early-stage ventures bridging optimization and real-world impact.</p>
+      <div class="flex flex-wrap justify-center gap-3 mt-8">
+        <a href="mailto:felicenguyen2001@gmail.com" class="inline-flex items-center gap-2 font-semibold px-6 py-3.5 rounded-xl text-ink" style="background:linear-gradient(135deg,#22D3EE,#38BDF8)"><i data-lucide="mail" class="w-4 h-4"></i> felicenguyen2001@gmail.com</a>
+        <a href="https://linkedin.com/in/akuma9999/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-semibold px-6 py-3.5 rounded-xl text-slate-200 chip hover:border-accent-500/50 transition"><i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-line">
+  <div class="max-w-6xl mx-auto px-5 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-500">
+    <div>© <span id="yr"></span> Thanh Van Nguyen</div>
+    <div class="flex items-center gap-4">
+      <a href="mailto:felicenguyen2001@gmail.com" class="hover:text-accent-400">Email</a>
+      <a href="https://linkedin.com/in/akuma9999/" target="_blank" rel="noopener" class="hover:text-accent-400">LinkedIn</a>
+      <span>Hanoi · Shenzhen</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  function icons(){ window.lucide && lucide.createIcons(); }
+  window.addEventListener('DOMContentLoaded', icons);
+  document.addEventListener('alpine:initialized', icons);
+  // reveal on scroll
+  const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // scroll-spy
+  const links=[...document.querySelectorAll('.navlink')];
+  const spy=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ const id=e.target.id; links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+id)); } }),{rootMargin:'-45% 0px -50% 0px'});
+  ['about','experience','publications','skills','awards'].forEach(id=>{const el=document.getElementById(id); if(el) spy.observe(el);});
+</script>
+</body>
+</html>
